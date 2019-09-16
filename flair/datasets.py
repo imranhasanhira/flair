@@ -623,6 +623,7 @@ class ColumnDataset(FlairDataset):
 
             line = f.readline()
             position = 0
+            count_car = 0
 
             while line:
 
@@ -644,16 +645,18 @@ class ColumnDataset(FlairDataset):
                             position = f.tell()
                         self.total_sentence_count += 1
                     sentence: Sentence = Sentence()
+                    count_car = 0
 
                 else:
                     fields: List[str] = re.split("\s+", line)
-                    token = Token(fields[self.text_column])
+                    token = Token(text = fields[self.text_column], start_position = count_car)
                     for column in column_name_map:
                         if len(fields) > column:
                             if column != self.text_column:
                                 token.add_tag(
                                     self.column_name_map[column], fields[column]
                                 )
+                    count_car += len(fields[self.text_column])+1
 
                     sentence.add_token(token)
 
