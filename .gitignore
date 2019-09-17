@@ -91,6 +91,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+dev_flair/
 
 # Spyder project settings
 .spyderproject
